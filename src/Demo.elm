@@ -2,13 +2,11 @@ module Demo exposing (main)
 
 import Browser
 import Email
-import Heading
 import Html exposing (Html, div)
 import Html.Attributes exposing (class)
 import MultiSelectField
 import RadioField
 import SelectField
-import SliderField
 import TextField
 
 
