@@ -1,0 +1,12 @@
+{
+  "name": "form-builder",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "devDependencies": {
+    "elm-live": "^4.0.1"
+  },
+  "scripts": {
+    "dev": "elm-live ./src/Demo.elm --open --dir=./demo -- --debug --output=./demo/demo.js"
+  }
+}
