@@ -1,4 +1,10 @@
-module SliderField exposing (Attributes, Option, Value(..), isValueSelected, stringToOption, value, view)
+module SliderField exposing (Attributes, isValueSelected, stringToOption, value, view, Option, Value(..))
+
+{-| SliderField - In future, this will be a slider. For now, it is implemented as a radio
+
+@docs Attributes, isValueSelected, stringToOption, value, view, Option, Value
+
+-}
 
 import Html exposing (Html, div, input, label, text)
 import Html.Attributes exposing (checked, class, name, type_, value)
@@ -6,15 +12,21 @@ import Html.Events exposing (onClick)
 import List.Extra as List
 
 
+{-| The current value for the field
+-}
 type Value
     = Empty
     | Selected Option
 
 
+{-| An option that is included in the list of possible selections
+-}
 type alias Option =
     ( String, String )
 
 
+{-| The model to store the state for the element
+-}
 type alias Attributes =
     { key : String
     , label : String
@@ -23,11 +35,18 @@ type alias Attributes =
     }
 
 
+{-| Helper for converting a string to an Option
+
+        List.map stringToOption ["dog", "cat"] == [ ("dog" dog"), ("cat" cat") ]
+
+-}
 stringToOption : String -> Option
 stringToOption s =
     ( s, s )
 
 
+{-| Returns true is the selected value matches a specific string. Useful for unpacking the internal state.
+-}
 isValueSelected : List String -> Value -> Bool
 isValueSelected searchVals fieldVal =
     case fieldVal of
@@ -40,6 +59,8 @@ isValueSelected searchVals fieldVal =
             False
 
 
+{-| Converts a multi select value into the selected string
+-}
 value : Value -> String
 value val =
     case val of
@@ -50,6 +71,8 @@ value val =
             ""
 
 
+{-| Renders the slider
+-}
 view : (Attributes -> msg) -> Attributes -> Html msg
 view msgChange attrs =
     let

@@ -1,20 +1,32 @@
 module MultiSelectField exposing (Attributes, Option(..), Value(..), value, view)
 
+{-| MultiSelectField - renders a list of options and allows user to select multiple values including other.
+
+@docs Attributes, Option, Value, value, view
+
+-}
+
 import Html exposing (Html, div, input, label, text)
 import Html.Attributes exposing (checked, class, placeholder, type_, value)
 import Html.Events exposing (onClick, onInput)
 
 
+{-| The current value for the field
+-}
 type Value
     = Empty
     | Selected (List Option)
 
 
+{-| An option that is included in the list of possible selections
+-}
 type Option
     = SelectOption String String
     | OtherOption String
 
 
+{-| The model to store the state for the element
+-}
 type alias Attributes =
     { key : String
     , label : String
@@ -23,6 +35,8 @@ type alias Attributes =
     }
 
 
+{-| Converts a multi select value into a list of selected string
+-}
 value : Value -> List String
 value val =
     case val of
@@ -97,6 +111,8 @@ replaceOther str opt vals =
         opt :: vals
 
 
+{-| Renders the multi select
+-}
 view : (Attributes -> msg) -> Attributes -> Html msg
 view msgChange attrs =
     let

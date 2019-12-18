@@ -1,20 +1,32 @@
 module SelectField exposing (Attributes, Value(..), stringToOption, value, view)
 
+{-| SelectField - renders a dropdown list
+
+@docs Attributes, Value, stringToOption, value, view
+
+-}
+
 import Html exposing (Html, div, label, option, select, text)
 import Html.Attributes exposing (class, value)
 import Html.Events exposing (on, targetValue)
 import Json.Decode as Decode
 
 
+{-| The current value for the field
+-}
 type Value
     = EmptySelect
     | Selected SelectOption
 
 
+{-| An option that is included in the list of possible selections
+-}
 type alias SelectOption =
     ( String, String )
 
 
+{-| The model to store the state for the element
+-}
 type alias Attributes =
     { key : String
     , label : String
@@ -24,11 +36,18 @@ type alias Attributes =
     }
 
 
+{-| Helper for converting a string to an Option
+
+        List.map stringToOption ["dog", "cat"] == [ ("dog" dog"), ("cat" cat") ]
+
+-}
 stringToOption : String -> SelectOption
 stringToOption s =
     ( s, s )
 
 
+{-| Converts a multi select value into the selected string
+-}
 value : Value -> String
 value val =
     case val of
@@ -39,6 +58,8 @@ value val =
             v
 
 
+{-| Renders the select
+-}
 view : (Attributes -> msg) -> Attributes -> Html msg
 view msgChange attrs =
     let

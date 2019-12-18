@@ -1,10 +1,18 @@
 module TextField exposing (Attributes, Icon(..), Value(..), password, value, view)
 
+{-| TextField - renders a text field and validates the value
+
+@docs Attributes, Icon, Value, password, value, view
+
+-}
+
 import Html exposing (Html, div, i, input, label, p, span, text)
 import Html.Attributes exposing (class, classList, placeholder, type_, value)
 import Html.Events exposing (onInput)
 
 
+{-| The model to store the state for the element
+-}
 type alias Attributes =
     { key : String
     , icon : Icon
@@ -15,17 +23,23 @@ type alias Attributes =
     }
 
 
+{-| An optional icon for the text field.
+-}
 type Icon
     = NoIcon
     | WithIcon String
 
 
+{-| The current value for the field
+-}
 type Value
     = EmptyText
     | TextValid String
     | TextInvalid String String
 
 
+{-| Converts a multi select value into a list of selected string
+-}
 value : Value -> String
 value val =
     case val of
@@ -121,11 +135,15 @@ viewHelper inputType msgInput attrs =
         ]
 
 
+{-| Renders the text field
+-}
 view : (Attributes -> msg) -> Attributes -> Html msg
 view msgInput attrs =
     viewHelper "text" msgInput attrs
 
 
+{-| Renders the special password text field
+-}
 password : (Attributes -> msg) -> Attributes -> Html msg
 password msgInput attrs =
     viewHelper "password" msgInput attrs

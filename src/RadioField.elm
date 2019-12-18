@@ -1,4 +1,10 @@
-module RadioField exposing (Attributes, Option(..), Value(..), isValueSelected, stringToOption, value, view)
+module RadioField exposing (Attributes, isValueSelected, stringToOption, value, view, Option(..), Value(..))
+
+{-| RadioField - renders a list of options and allows user to select a single value, including other.
+
+@docs Attributes, isValueSelected, stringToOption, value, view, Option, Value
+
+-}
 
 import Html exposing (Html, div, input, label, text)
 import Html.Attributes exposing (checked, class, name, placeholder, type_, value)
@@ -6,16 +12,22 @@ import Html.Events exposing (onClick, onInput)
 import List.Extra as List
 
 
+{-| The current value for the field
+-}
 type Value
     = Empty
     | Selected Option
 
 
+{-| An option that is included in the list of possible selections
+-}
 type Option
     = SelectOption String String
     | OtherOption String
 
 
+{-| The model to store the state for the element
+-}
 type alias Attributes =
     { key : String
     , label : String
@@ -24,11 +36,18 @@ type alias Attributes =
     }
 
 
+{-| Helper for converting a string to an Option
+
+        List.map stringToOption ["dog", "cat"] == [ SelectOption "dog" dog", SelectOption "cat" cat" ]
+
+-}
 stringToOption : String -> Option
 stringToOption s =
     SelectOption s s
 
 
+{-| Returns true is the selected value matches a specific string. Useful for unpacking the internal state.
+-}
 isValueSelected : List String -> Value -> Bool
 isValueSelected vals fieldval =
     case fieldval of
@@ -46,6 +65,8 @@ isValueSelected vals fieldval =
             False
 
 
+{-| Converts a multi select value into the selected string
+-}
 value : Value -> String
 value val =
     case val of
@@ -59,6 +80,8 @@ value val =
             ""
 
 
+{-| Renders the radio
+-}
 view : (Attributes -> msg) -> Attributes -> Html msg
 view msgChange attrs =
     let
